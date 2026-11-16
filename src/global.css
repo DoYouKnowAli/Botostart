@@ -1,0 +1,117 @@
+:root {
+  font-family: "Google Sans Flex", "Vazirmatn", system-ui, sans-serif;
+  line-height: 1.5;
+  color-scheme: dark;
+  --bg: #020100;
+  --secondary-bg: #202020;
+  --text: #ffffff;
+  --accent: #8ecae6;
+  --accent-dark: #4A9B6E;
+  --card: #0d0c0b;
+  --border: #2a2826;
+  --danger: #e63946;
+  --danger-hover: #c1121f;
+  --muted: #a0a0a0;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: auto;
+  max-width: 900px;
+  min-height: 100vh;
+  padding: 1.25rem;
+  background: linear-gradient(to top, var(--bg), var(--secondary-bg));
+  color: var(--text);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal h3 {
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+.modal p {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 0.55rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: 0.15s ease;
+}
+
+.modal-actions .cancel {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.modal-actions .cancel:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.modal-actions .confirm {
+  background: var(--danger);
+  color: white;
+}
+
+.modal-actions .confirm:hover {
+  background: var(--danger-hover);
+}
+
+.modal-actions .confirm-accent {
+  background: var(--accent);
+  color: #020100;
+}
+
+.modal-actions .confirm-accent:hover {
+  background: var(--accent-dark);
+  color: white;
+}
