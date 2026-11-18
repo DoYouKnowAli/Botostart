@@ -3,10 +3,15 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Contacts />
-    </>
+    <main className="page-enter">
+      <div className="header-enter">
+        <Header />
+      </div>
+
+      <div className="content-enter">
+        <Contacts />
+      </div>
+    </main>
   );
 }
 

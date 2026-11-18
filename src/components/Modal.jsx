@@ -8,8 +8,8 @@ function Modal({
 }) {
   return (
     <div className="modal-backdrop" onClick={onCancel}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h3>{title}</h3>
+      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={(e) => e.stopPropagation()}>
+        <h3 id="modal-title">{title}</h3>
         <p>{message}</p>
         <div className="modal-actions">
           <button className="cancel" onClick={onCancel}>

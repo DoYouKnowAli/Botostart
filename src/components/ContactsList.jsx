@@ -4,6 +4,7 @@ import styles from "./ContactsList.module.css";
 function ContactsList({
   contacts,
   selectedIds,
+  exitingIds,
   onToggleSelect,
   onToggleSelectAll,
   onEdit,
@@ -42,11 +43,13 @@ function ContactsList({
         </div>
       ) : (
         <ul className={styles.list}>
-          {contacts.map((contact) => (
+          {contacts.map((contact, index) => (
             <ContactItem
               key={contact.id}
               data={contact}
               isSelected={selectedIds.includes(contact.id)}
+              isExiting={exitingIds.includes(contact.id)}
+              style={{ animationDelay: `${Math.min(index * 60, 360)}ms` }}
               onToggleSelect={onToggleSelect}
               onEdit={onEdit}
               onDelete={onDelete}

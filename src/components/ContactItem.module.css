@@ -9,6 +9,33 @@
   transition: border-color 0.15s, background 0.15s;
 }
 
+.item {
+  animation: contactEnter 0.38s ease both;
+}
+
+.item.exiting {
+  animation: contactExit 0.22s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes contactEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contactExit {
+  to {
+    opacity: 0;
+    transform: translateX(18px) scale(0.98);
+  }
+}
+
 .item:hover {
   border-color: #3d3a37;
 }
@@ -113,5 +140,13 @@
     width: 100%;
     justify-content: flex-end;
     margin-top: 0.3rem;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .item.exiting {
+    animation: none;
   }
 }

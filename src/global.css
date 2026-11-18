@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@1..144,1..1000&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap");
 :root {
   font-family: "Google Sans Flex", "Vazirmatn", system-ui, sans-serif;
   line-height: 1.5;
@@ -6,7 +9,7 @@
   --secondary-bg: #202020;
   --text: #ffffff;
   --accent: #8ecae6;
-  --accent-dark: #4A9B6E;
+  --accent-dark: #4a9b6e;
   --card: #0d0c0b;
   --border: #2a2826;
   --danger: #e63946;
@@ -39,6 +42,7 @@ input {
 }
 
 .modal-backdrop {
+  animation: backdropEnter 0.18s ease both;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -50,6 +54,7 @@ input {
 }
 
 .modal {
+  animation: modalEnter 0.24s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -114,4 +119,65 @@ input {
 .modal-actions .confirm-accent:hover {
   background: var(--accent-dark);
   color: white;
+}
+
+
+@keyframes backdropEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .modal {
+    animation: none;
+  }
+}
+
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pageSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageFadeIn 0.8s ease-out both;
+}
+
+.header-enter {
+  animation: pageSlideUp 0.7s ease-out both;
+}
+
+.content-enter {
+  animation: pageSlideUp 0.9s ease-out 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .header-enter,
+  .content-enter {
+    animation: none;
+  }
 }

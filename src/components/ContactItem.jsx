@@ -3,12 +3,17 @@ import styles from "./ContactItem.module.css";
 function ContactItem({
   data: { id, name, lastName, email, phoneNumber },
   isSelected,
+  isExiting,
+  style,
   onToggleSelect,
   onEdit,
   onDelete,
 }) {
   return (
-    <li className={`${styles.item} ${isSelected ? styles.selected : ""}`}>
+    <li
+      style={style}
+      className={`${styles.item} ${isSelected ? styles.selected : ""} ${isExiting ? styles.exiting : ""}`}
+    >
       <label className={styles.checkbox}>
         <input
           type="checkbox"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import inputs from "../constants/inputs.js";
 import ContactsList from "./ContactsList";
@@ -14,18 +14,27 @@ const emptyContact = {
 };
 
 function Contacts() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem("contacts");
+
+    return savedContacts ? JSON.parse(savedContacts) : [];
+  });
   const [contact, setContact] = useState(emptyContact);
   const [errors, setErrors] = useState({});
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
+  const [exitingIds, setExitingIds] = useState([]);
 
   const [modal, setModal] = useState({
     open: false,
     type: null,
     payload: null,
   });
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const validate = () => {
     const newErrors = {};
@@ -124,9 +133,14 @@ function Contacts() {
   };
 
   const confirmDeleteOne = () => {
-    setContacts((prev) => prev.filter((c) => c.id !== modal.payload));
-    setSelectedIds((prev) => prev.filter((id) => id !== modal.payload));
+    const id = modal.payload;
+    setExitingIds((prev) => [...prev, id]);
     closeModal();
+    window.setTimeout(() => {
+      setContacts((prev) => prev.filter((c) => c.id !== id));
+      setSelectedIds((prev) => prev.filter((selectedId) => selectedId !== id));
+      setExitingIds((prev) => prev.filter((exitingId) => exitingId !== id));
+    }, 240);
   };
 
   const openDeleteManyModal = () => {
@@ -139,9 +153,14 @@ function Contacts() {
   };
 
   const confirmDeleteMany = () => {
-    setContacts((prev) => prev.filter((c) => !selectedIds.includes(c.id)));
+    const idsToDelete = [...selectedIds];
+    setExitingIds((prev) => [...new Set([...prev, ...idsToDelete])]);
     setSelectedIds([]);
     closeModal();
+    window.setTimeout(() => {
+      setContacts((prev) => prev.filter((c) => !idsToDelete.includes(c.id)));
+      setExitingIds((prev) => prev.filter((id) => !idsToDelete.includes(id)));
+    }, 240);
   };
 
   const closeModal = () => {
@@ -282,6 +301,7 @@ function Contacts() {
       <ContactsList
         contacts={filteredContacts}
         selectedIds={selectedIds}
+        exitingIds={exitingIds}
         onToggleSelect={toggleSelect}
         onToggleSelectAll={toggleSelectAll}
         onEdit={startEdit}
